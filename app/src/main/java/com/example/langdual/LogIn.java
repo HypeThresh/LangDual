@@ -70,14 +70,10 @@ public class LogIn extends AppCompatActivity {
 
                 if(mail.isEmpty()||password.isEmpty())
                 {
-
                     Toast.makeText(getApplicationContext(), "Rellene todas las casillas", Toast.LENGTH_SHORT).show();
                 }
                 else
                 {
-                    //Log in del usuario
-
-
                     firebaseAuth.signInWithEmailAndPassword(mail,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
@@ -89,18 +85,12 @@ public class LogIn extends AppCompatActivity {
                             else
                             {
                                 Toast.makeText(getApplicationContext(),"La cuenta no existe o datos incorrectos",Toast.LENGTH_SHORT).show();
-
                             }
-
-
                         }
                     });
-
-
                 }
             }
         });
-
     }
 
     private void checkmailverificaction()
