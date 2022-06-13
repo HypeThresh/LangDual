@@ -16,6 +16,9 @@
         android:theme="@style/Theme.LangDual"
         tools:targetApi="31">
         <activity
+            android:name=".PrincipalView"
+            android:exported="false" />
+        <activity
             android:name=".UserProfile"
             android:exported="false" />
         <activity
