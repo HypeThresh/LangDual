@@ -27,7 +27,6 @@ public class MainActivity extends AppCompatActivity {
     ProgressDialog progressDialog;//Barra de carga
     PhoneticsAdapter foneticaAdapter;
     MeaningAdapter significadoAdapter;
-    DatabaseReference myRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
             startActivity(new Intent(getApplicationContext(),UserProfile.class));
         }
 
+        Toast.makeText(this, name, Toast.LENGTH_SHORT).show();
 
         searchView = findViewById(R.id.search_view);
         word = findViewById(R.id.word);
