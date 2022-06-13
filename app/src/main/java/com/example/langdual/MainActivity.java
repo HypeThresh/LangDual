@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     PhoneticsAdapter foneticaAdapter;
     MeaningAdapter significadoAdapter;
     ImageView salir, historial;
+    public static String palabra = "hello";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
         progressDialog = new ProgressDialog(this);
 
         RequestManager manager = new RequestManager(MainActivity.this);
-        manager.getSignificadoPalabra(listener, "hello");
+        manager.getSignificadoPalabra(listener, palabra);
 
         historial.setOnClickListener(new View.OnClickListener() {
             @Override

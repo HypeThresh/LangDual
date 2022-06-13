@@ -1,11 +1,18 @@
 package com.example.langdual.adapters;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.langdual.HistorialActivity;
+import com.example.langdual.MainActivity;
 import com.example.langdual.R;
 import java.util.ArrayList;
 
@@ -39,6 +46,14 @@ public class HistorialAdapter extends RecyclerView.Adapter<HistorialAdapter.View
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, @SuppressLint("RecyclerView") final int position) {
         viewHolder.palabra.setText(localDataSet.get(position));
+
+        viewHolder.palabra.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Toast.makeText(view.getContext(), localDataSet.get(position), Toast.LENGTH_SHORT).show();
+                MainActivity.palabra = localDataSet.get(position);
+            }
+        });
     }
 
     // Return the size of your dataset (invoked by the layout manager)
