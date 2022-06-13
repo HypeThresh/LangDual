@@ -50,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
         searchView = findViewById(R.id.search_view);
         word = findViewById(R.id.word);
         salir = findViewById(R.id.logout);
+        historial = findViewById(R.id.historial);
 
         recyclerViewFonetica = findViewById(R.id.recyclerFonetica);
         recyclerViewSignificado = findViewById(R.id.recyclerSignificado);
@@ -57,6 +58,14 @@ public class MainActivity extends AppCompatActivity {
 
         RequestManager manager = new RequestManager(MainActivity.this);
         manager.getSignificadoPalabra(listener, "hello");
+
+        historial.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+                startActivity(new Intent(MainActivity.this, HistorialActivity.class));
+            }
+        });
 
         salir.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,8 +80,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onQueryTextSubmit(String query) {
 
-                progressDialog.setMessage("Loading..."+query);
-                progressDialog.show();
+                //progressDialog.setMessage("Loading..."+query);
+                //progressDialog.show();
                 RequestManager manager = new RequestManager(MainActivity.this);
                 manager.getSignificadoPalabra(listener,  query);
                 return true;
