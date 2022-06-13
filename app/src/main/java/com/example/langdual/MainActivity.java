@@ -7,7 +7,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
     ProgressDialog progressDialog;//Barra de carga
     PhoneticsAdapter foneticaAdapter;
     MeaningAdapter significadoAdapter;
+    ImageView salir, historial;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,15 +49,23 @@ public class MainActivity extends AppCompatActivity {
 
         searchView = findViewById(R.id.search_view);
         word = findViewById(R.id.word);
+        salir = findViewById(R.id.logout);
+
         recyclerViewFonetica = findViewById(R.id.recyclerFonetica);
         recyclerViewSignificado = findViewById(R.id.recyclerSignificado);
         progressDialog = new ProgressDialog(this);
 
-        progressDialog.setTitle("Loading...");
-        progressDialog.show();
-
         RequestManager manager = new RequestManager(MainActivity.this);
         manager.getSignificadoPalabra(listener, "hello");
+
+        salir.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+                FirebaseAuth.getInstance().signOut();
+                startActivity(new Intent(MainActivity.this, LogIn.class));
+            }
+        });
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
