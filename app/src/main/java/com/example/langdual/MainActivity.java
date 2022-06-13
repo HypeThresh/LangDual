@@ -116,7 +116,9 @@ public class MainActivity extends AppCompatActivity {
 
     private void insertHistorial(String histori) {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("historial");
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        String uid = user.getUid();
+        DatabaseReference myRef = database.getReference(uid);
         myRef.child(histori).setValue(histori);
     }
 
