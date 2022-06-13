@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "889761444241",
+    "firebase_url": "https://langdual-default-rtdb.firebaseio.com",
+    "project_id": "langdual",
+    "storage_bucket": "langdual.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:889761444241:android:eb03d05a0facf4e8482a30",
+        "android_client_info": {
+          "package_name": "com.example.langdual"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "889761444241-up2k555nb1fng508ojnam7rjagqapmeb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAOvCqL0lWJv8pKUYIGrs7HMRa-p8BP80s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "889761444241-up2k555nb1fng508ojnam7rjagqapmeb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

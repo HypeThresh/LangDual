@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">LangDual</string>
+    <string name="forgot"><u>Olvidaste tu contraseña?</u></string>
+    <string name="signin"><u>Sign Up</u></string>
+    <string name="login"><u>Log in</u></string>
+    <string name="sign">No posees una cuenta?</string>
+</resources>
