@@ -2,14 +2,12 @@ package com.example.langdual;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -23,18 +21,15 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
-
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 
 public class UserProfile extends AppCompatActivity {
-    ImageView imagen;
+    ImageView image;
     Button btnSend;
     TextInputEditText userName;
 
-    private Uri imagenFile;
+    Uri imageFile;
     Boolean imgBool;
     Bitmap bmp;
     FirebaseStorage storage;
@@ -46,12 +41,13 @@ public class UserProfile extends AppCompatActivity {
         setContentView(R.layout.activity_user_profile);
 
         btnSend = findViewById(R.id.btnUserProfile);
-        storage = FirebaseStorage.getInstance();
-        imagen.setImageDrawable(getResources().getDrawable(R.drawable.click));
+        image = findViewById(R.id.imageUser);
         userName = findViewById(R.id.userNameText);
+
+        image.setImageDrawable(getResources().getDrawable(R.drawable.click));
         imgBool = Boolean.FALSE;
 
-        imagen.setOnClickListener(new View.OnClickListener() {
+        image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 abrirGaleria(view);
@@ -61,25 +57,40 @@ public class UserProfile extends AppCompatActivity {
         btnSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (imgBool) {
-                    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                    UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-                            .setDisplayName(userName.getText().toString())
-                            .build();
-                    user.updateProfile(profileUpdates)
-                            .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    if (task.isSuccessful()) {
-                                        finish();
-                                        startActivity(new Intent(UserProfile.this, MainActivity.class));
-                                    }
-                                }
-                            });
-                }
+                subir();
             }
         });
     }
+
+    private void subir() {
+        String name = userName.getText().toString();
+        if (imgBool && !name.isEmpty()) {
+            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+            UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                    .setDisplayName(name)
+                    .build();
+
+            user.updateProfile(profileUpdates)
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()) {
+                                finish();
+                                startActivity(new Intent(UserProfile.this, MainActivity.class));
+                            }
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(UserProfile.this, "No se pudo insertar", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+        }else{
+            Toast.makeText(UserProfile.this, "Debes ingresar un nombre de usuario y fotografia", Toast.LENGTH_SHORT).show();
+        }
+    }
+
     protected void onActivityResult(int requestCode, int resultCode,
                                     Intent imageReturnedIntent) {
         super.onActivityResult(requestCode, resultCode, imageReturnedIntent);
@@ -101,15 +112,14 @@ public class UserProfile extends AppCompatActivity {
                                 e.printStackTrace();
                             }
 
-                            imagenFile = selectedImage;
+                            imageFile = selectedImage;
                             imgBool = Boolean.TRUE;
 
                             // Transformamos la URI de la imagen a inputStream y este a un Bitmap
                             bmp = BitmapFactory.decodeStream(imageStream);
 
                             // Ponemos nuestro bitmap en un ImageView que tengamos en la vista
-                            imagen.setImageBitmap(bmp);
-
+                            image.setImageBitmap(bmp);
                         }
                     }
                 }else{
